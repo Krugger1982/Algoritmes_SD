@@ -42,6 +42,8 @@ class LinkedList:
 
     def delete(self, val, all=False):
         node = self.head                               # ставим 1й указатель в голову
+        if node is None:                               # Из пустого списка ничего нельзя удалить
+            return
         node1 = node.next                              # а второй указатель - на 2й элемент
         N = 0
         if node.value == val and node1 == None:
@@ -49,6 +51,7 @@ class LinkedList:
             N += 1
         if all:
             while node1 is not None:
+                node1 = node.next
                 if  node.value == val:                         # Если 1й элемент - val 
                     self.head = node1                          # Сдвигаем указатель головы на 2й элемент
                     node = node1                               # Ставим указатель node на 2-й элемент
@@ -59,6 +62,8 @@ class LinkedList:
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node на место 2-го
                     node1 = node.next                          # А node1 на место 3-го
+                if node.next is None:
+                    self.tail = node
         else:
              while node1 is not None and N == 0:
                 if  node.value == val:                         # Если 1й элемент - val
@@ -73,6 +78,9 @@ class LinkedList:
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node на место 2-го
                     node1 = node.next                          # А node1 на место 3-го
+                if node.next is None:
+                    self.tail = node
+    
     def clean(self):
         self.head = None
         self.tail = None
