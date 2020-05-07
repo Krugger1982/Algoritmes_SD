@@ -97,7 +97,6 @@ class LinkedList:
     def insert(self, afterNode, newNode):
         C = Node(newNode)
         node = self.head
-        node1 = node.next
         if afterNode == None:
             C.next = node
             self.head = C 
@@ -106,7 +105,8 @@ class LinkedList:
                 node1 = node.next
                 node.next = C
                 C.next = node1
-                if C.next == None:
-                    self.tail = C
                 break
-            node = node.next
+            else:
+                node = node.next
+        if C.next == None:
+            self.tail = C
