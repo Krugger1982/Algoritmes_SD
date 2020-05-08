@@ -114,7 +114,7 @@ class MyTestCase(unittest.TestCase):
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(None, 666)  
+        s_list.insert(None, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 666)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 5)   
@@ -128,21 +128,29 @@ class MyTestCase(unittest.TestCase):
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(5, 666)  
+        current = random.randint(2, len(list1) - 1)
+        C = s_list.head
+        for i in range (current - 1):
+            C = C.next
+        s_list.insert(C, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
-        self.assertEqual(s_list.head.next.value, 666)   
+        self.assertEqual(s_list.head.next.value, 8)   
         self.assertEqual(s_list.tail.value, 5)        # Проверка указателя tail
         self.assertEqual(s_list.tail.next, None) 
 
     def test_inserting_666_at_the_tail(self):
-        list1 = [5, 8, 35, 2, 31, 5, 17]
+        list1 = [5, 8, 35, 2, 31, 5, 17, 5, 5, 5]
         s_list = LinkedList()
         for i in list1:
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(17, 666)  
+        current = len(list1) - 1
+        C = s_list.head
+        for i in range (current):
+            C = C.next
+        s_list.insert(C, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 8)   
@@ -152,7 +160,7 @@ class MyTestCase(unittest.TestCase):
     def test_inserting_666_at_the_empty_list(self):
         s_list = LinkedList()
         L = s_list.len()
-        s_list.insert(None, 666)  
+        s_list.insert(None, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 666)        # Проверка указателя head
         self.assertEqual(s_list.head.next, None)   
@@ -161,9 +169,10 @@ class MyTestCase(unittest.TestCase):
         
     def test_inserting_666_at_the_alone_unit_list(self):
         s_list = LinkedList()
-        s_list.add_in_tail(Node(15))
+        C = Node(15)
+        s_list.add_in_tail(C)
         L = s_list.len()
-        s_list.insert(15, 666)  
+        s_list.insert(C, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 15)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 666)   
@@ -177,12 +186,21 @@ class MyTestCase(unittest.TestCase):
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(99, 666)  
+        X = Node(99)
+        s_list.insert(X, Node(666))  
         self.assertEqual(s_list.len(), L)         # проверка длины списка (не должна измениться)
         self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 8)   
         self.assertEqual(s_list.tail.value, 17)        # Проверка указателя tail
         self.assertEqual(s_list.tail.next, None)                 
         
-if __name__ == '__main__':
-    unittest.main()
+    def test_inserting_wrong_at_the_empty_list(self):
+        s_list = LinkedList()
+        L = s_list.len()
+        X = Node(99)
+        s_list.insert(X, Node(666))  
+        self.assertEqual(s_list.len(), L)         # проверка длины списка (не должна измениться)
+        self.assertEqual(s_list.head, None)        # Проверка указателя head (Остался None)
+        self.assertEqual(s_list.tail, None)        # Проверка указателя tail (Остался None)
+        
+if __name__ == '__main__
