@@ -95,25 +95,23 @@ class LinkedList:
         return N 
 
     def insert(self, afterNode, newNode):
-        C = Node(newNode)
         node = self.head
         if afterNode == None and node == None:
-            self.head = C 
-            self.tail = C   
+            self.head = newNode 
+            self.tail = newNode   
         elif afterNode == None:
-            C.next = node
-            self.head = C   
+            newNode.next = node
+            self.head = newNode   
         else:
             while node != None:
-                if node.value == afterNode and node.next == None:
-                    node1 = node.next
-                    node.next = C
-                    C.next = node1
-                    self.tail = C
+                if node == afterNode and self.tail == node:
+                    node.next = newNode
+                    newNode.next = None
+                    self.tail = newNode
                     break
-                elif node.value == afterNode:
+                elif node == afterNode:
                     node1 = node.next
-                    node.next = C
-                    C.next = node1
+                    node.next = newNode
+                    newNode.next = node1
                     break
                 node = node.next
