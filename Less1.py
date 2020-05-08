@@ -11,7 +11,7 @@ class LinkedList:
         self.tail = None
 
     def add_in_tail(self, item):
-        if self.head is None:
+        if self.head == None:
             self.head = item
         else:
             self.tail.next = item
@@ -25,7 +25,7 @@ class LinkedList:
 
     def find(self, val):
         node = self.head
-        while node is not None:
+        while node != None:
             if node.value == val:
                 return node
             node = node.next
@@ -34,7 +34,7 @@ class LinkedList:
     def find_all(self, val):
         A = []
         node = self.head
-        while node is not None:
+        while node != None:
             if node.value == val:
                 A.append(node)
             node = node.next
@@ -42,7 +42,7 @@ class LinkedList:
 
     def delete(self, val, all=False):
         node = self.head                               # ставим 1й указатель в голову
-        if node is None:                               # Из пустого списка ничего нельзя удалить
+        if node == None:                               # Из пустого списка ничего нельзя удалить
             return
         node1 = node.next                              # а второй указатель - на 2й элемент
         N = 0
@@ -51,7 +51,7 @@ class LinkedList:
             self.tail = None
             N += 1
         if all:
-            while node1 is not None:
+            while node1 != None:
                 node1 = node.next
                 if  node.value == val:                         # Если 1й элемент - val 
                     self.head = node1                          # Сдвигаем указатель головы на 2й элемент
@@ -63,10 +63,10 @@ class LinkedList:
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node на место 2-го
                     node1 = node.next                          # А node1 на место 3-го
-                if node.next is None:
+                if node.next == None:
                     self.tail = node
         else:
-             while node1 is not None and N == 0:
+             while node1 != None and N == 0:
                 if  node.value == val:                         # Если 1й элемент - val
                     self.head = node1                          # Сдвигаем указатель головы на 2й элемент
                     node = node1                               # переменная node принимает значение 2-го элемента
@@ -79,7 +79,7 @@ class LinkedList:
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node на место 2-го
                     node1 = node.next                          # А node1 на место 3-го
-                if node.next is None:
+                if node.next == None:
                     self.tail = node
     
     def clean(self):
@@ -89,7 +89,7 @@ class LinkedList:
     def len(self):
         node = self.head
         N = 0
-        while node is not None:
+        while node != None:
             N += 1
             node = node.next
         return N 
@@ -104,8 +104,8 @@ class LinkedList:
             C.next = node
             self.head = C   
         else:
-            while node is not None:
-                if node.value == afterNode and node.next is None:
+            while node != None:
+                if node.value == afterNode and node.next == None:
                     node1 = node.next
                     node.next = C
                     C.next = node1
