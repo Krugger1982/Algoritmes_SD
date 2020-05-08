@@ -109,13 +109,11 @@ class LinkedList:
                     node1 = node.next
                     node.next = C
                     C.next = node1
-                    node = node.next
                     self.tail = C
                     break
                 elif node.value == afterNode:
                     node1 = node.next
                     node.next = C
                     C.next = node1
-                    node = node.next
-                else:
-                    node = node.next
+                    break
+                node = node.next
