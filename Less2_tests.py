@@ -90,6 +90,10 @@ class MyTestCase(unittest.TestCase):
         for i in list1:
             n = Node(i)
             s_list.add_in_tail(n)
+        A = s_list.find(5)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 5)
+        self.assertEqual(A.prev, None)
+        self.assertEqual(A.next.value, 8)
         L = s_list.len()
         s_list.delete(5, True)
         self.assertEqual(s_list.len(), L - 5)         # проверка длины измененного списка
@@ -103,14 +107,22 @@ class MyTestCase(unittest.TestCase):
     def test_delete_5_alone_unit_True(self):
         s_list = LinkedList2()
         s_list.add_in_tail(Node(5))
+        A = s_list.find(5)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 5)
+        self.assertEqual(A.prev, None)
+        self.assertEqual(A.next, None)
         s_list.delete(5, True)
-        # результат - пустой список
+                                                # результат - пустой список
         self.assertEqual(s_list.head, None)               
         self.assertEqual(s_list.tail, None)
 
     def test_delete_5_alone_unit_False(self):
         s_list = LinkedList2()
         s_list.add_in_tail(Node(5))
+        A = s_list.find(5)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 5)
+        self.assertEqual(A.prev, None)
+        self.assertEqual(A.next, None)
         s_list.delete(5, False)
         # результат - пустой список
         self.assertEqual(s_list.head, None)               
