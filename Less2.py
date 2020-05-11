@@ -139,4 +139,4 @@ class LinkedList2:
             self.head = newNode
             newNode.prev = None
             newNode.next = node
-            node.prev = NewNode
+            node.prev = newNode
