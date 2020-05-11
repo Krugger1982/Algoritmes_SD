@@ -80,6 +80,7 @@ class LinkedList2:
                     node.next = node1.next
                     node1 = node.next
                     node1.prev = node
+                    N += 1
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node и node1 вправо на 1 позицию
                     node1 = node.next                          
@@ -108,16 +109,17 @@ class LinkedList2:
         elif afterNode == None:
             self.tail.next = newNode
             newNode.prev = self.tail
+            newNode.next = None
             self.tail = newNode
         else:
             while node != None:
-                if node.value == afterNode and node.next == None:
+                if node == afterNode and node.next == None:
                     node.next = newNode
                     newNode.next = None
                     newNode.prev = node
                     self.tail = newNode
                     break
-                elif node.value == afterNode:
+                elif node == afterNode:
                     node1 = node.next
                     node.next = newNode
                     newNode.next = node1
@@ -137,3 +139,4 @@ class LinkedList2:
             self.head = newNode
             newNode.prev = None
             newNode.next = node
+            node.prev = NewNode
