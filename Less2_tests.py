@@ -61,48 +61,69 @@ class MyTestCase(unittest.TestCase):
         C = s2_list.find_all(6)        
         self.assertEqual(C, [])                # На выходе - пустой список
 
-    def test_delete_5_False(self):
-        list1 = [5, 8, 35, 2, 31, 5, 17, 10, 2, 5, 5, 5]
+    def test_delete_8_False(self):
+        list1 = [5, 8, 35, 2, 35, 31, 5, 8, 17, 10, 2, 5, 5]
         s_list = LinkedList2()
         for i in list1:
             n = Node(i)
             s_list.add_in_tail(n)
-        A = s_list.find(5)                      # проверка наличия искомого элемента перед удалением
-        self.assertEqual(A.value, 5)
-        self.assertEqual(A.prev, None)
-        self.assertEqual(A.next.value, 8)
         L = s_list.len()
-        s_list.delete(5, False)
+        A = s_list.find(8)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 8)
+        self.assertEqual(A.prev.value, 5)
+        self.assertEqual(A.next.value, 35)
+        s_list.delete(35, False)
         self.assertEqual(s_list.len(), L - 1)         # проверка длины измененного списка
-        self.assertEqual(s_list.head.value, 8)        # Проверка указателя head
+        self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 35)
         self.assertEqual(s_list.head.prev, None)
         self.assertEqual(s_list.tail.value, 5)        # Проверка указателя tail
         self.assertEqual(s_list.tail.prev.value, 5)
         self.assertEqual(s_list.tail.next, None)
-        A1 = s_list.find(5)                              # проверка отсутствия удаленного элемента в списке
-        self.assertNotEqual(A1.next.value, 8)
-        self.assertNotEqual(A1.prev, None)
-        
-    def test_delete_5_True(self):
-        list1 = [5, 8, 35, 2, 31, 5, 17, 10, 2, 5, 5, 5]
+        A1 = s_list.find_all(5)                              # проверка отсутствия удаленного элемента в списке
+        self.assertEqual(len(A1), 2)
+
+    def test_delete_8_False(self):
+        list1 = [5, 8, 35, 2, 31, 5, 17, 10, 2, 5, 5]
         s_list = LinkedList2()
         for i in list1:
             n = Node(i)
             s_list.add_in_tail(n)
-        A = s_list.find(5)                      # проверка наличия искомого элемента перед удалением
-        self.assertEqual(A.value, 5)
-        self.assertEqual(A.prev, None)
-        self.assertEqual(A.next.value, 8)
         L = s_list.len()
-        s_list.delete(5, True)
-        self.assertEqual(s_list.len(), L - 5)         # проверка длины измененного списка
-        self.assertEqual(s_list.head.value, 8)        # Проверка указателя head
+        A = s_list.find(8)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 8)
+        self.assertEqual(A.prev.value, 5)
+        self.assertEqual(A.next.value, 35)
+        s_list.delete(8, False)
+        self.assertEqual(s_list.len(), L - 1)         # проверка длины измененного списка
+        self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 35)
         self.assertEqual(s_list.head.prev, None)
-        self.assertEqual(s_list.tail.value, 2)        # Проверка указателя tail
+        self.assertEqual(s_list.tail.value, 5)        # Проверка указателя tail
+        self.assertEqual(s_list.tail.prev.value, 5)
         self.assertEqual(s_list.tail.next, None)
-        self.assertEqual(s_list.tail.prev.value, 10)
+        A1 = s_list.find(8)                              # проверка отсутствия удаленного элемента в списке
+        self.assertEqual(A1, None)
+        
+    def test_delete_22_False_from_tail(self):
+        list1 = [5, 8, 35, 2, 31, 5, 17, 10, 22]
+        s_list = LinkedList2()
+        for i in list1:
+            n = Node(i)
+            s_list.add_in_tail(n)
+        A = s_list.find(22)                      # проверка наличия искомого элемента перед удалением
+        self.assertEqual(A.value, 22)
+        self.assertEqual(A.prev.value, 10)
+        self.assertEqual(A.next, None)
+        L = s_list.len()
+        s_list.delete(22, False)
+        self.assertEqual(s_list.len(), L - 1)         # проверка длины измененного списка
+        self.assertEqual(s_list.head.value, 5)        # Проверка указателя head
+        self.assertEqual(s_list.head.next.value, 8)
+        self.assertEqual(s_list.head.prev, None)
+        self.assertEqual(s_list.tail.value, 10)        # Проверка указателя tail
+        self.assertEqual(s_list.tail.next, None)
+        self.assertEqual(s_list.tail.prev.value, 17)
 
     def test_delete_5_alone_unit_True(self):
         s_list = LinkedList2()
@@ -180,7 +201,8 @@ class MyTestCase(unittest.TestCase):
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(17, Node(666))
+        X = s_list.find(17)
+        s_list.insert(X, Node(666))
         C = s_list.find(666)
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(C.value, 666)                # проверка наличия вставленного элемента
@@ -198,7 +220,8 @@ class MyTestCase(unittest.TestCase):
             n = Node(i)
             s_list.add_in_tail(n)
         L = s_list.len()
-        s_list.insert(35, Node(666))
+        X = s_list.find(35)
+        s_list.insert(X, Node(666))
         C = s_list.find(666)
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(C.value, 666)                # проверка наличия вставленного элемента
@@ -227,7 +250,8 @@ class MyTestCase(unittest.TestCase):
         s_list = LinkedList2()
         s_list.add_in_tail(Node(15))
         L = s_list.len()
-        s_list.insert(15, Node(666))  
+        X = s_list.find(15)
+        s_list.insert(X, Node(666))  
         self.assertEqual(s_list.len(), L + 1)         # проверка длины измененного списка
         self.assertEqual(s_list.head.value, 15)        # Проверка указателя head
         self.assertEqual(s_list.head.next.value, 666)
@@ -263,6 +287,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(s_list.tail.value, 5)        # Проверка указателя tail
         self.assertEqual(s_list.tail.prev.value, 5)  
         self.assertEqual(s_list.tail.next, None)
+        self.assertEqual(s_list.head.next.prev, s_list.head)      # Проверка указателя prev у второго элемента - должен указывать на HEAD
         
 if __name__ == '__main__':
     try: unittest.main()
