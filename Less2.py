@@ -74,8 +74,12 @@ class LinkedList2:
                     node.prev = None
                     N += 1
                 elif node1.value == val and node1.next == None:  # Если второй элемент - val и он же последний
-                    node.next = None                           # ссылка на второй элемент превращается в ссылку на None                 
+                    node.next = None                           # ссылка на второй элемент превращается в ссылку на 3й                    
                     N += 1
+                elif node1.value == val:
+                    node.next = node1.next
+                    node1 = node.next
+                    node1.prev = node
                 else:                                          # если оба элемента не равны val
                     node = node.next                           # Сдвигаем node и node1 вправо на 1 позицию
                     node1 = node.next                          
