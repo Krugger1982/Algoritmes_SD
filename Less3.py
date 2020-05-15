@@ -51,5 +51,7 @@ class DynArray:
         for k in range(i, self.count - 1):
             self.array[k] = self.array[k + 1]
         self.count -= 1
-        if self.count < self.capacity / 2 and self.capacity > 16:
+        if self.count < self.capacity / 2:
             self.capacity = int(self.capacity /1.5)
+        if self.capacity < 16:
+            self.capacity = 16
