@@ -103,29 +103,29 @@ class MyTestCase(unittest.TestCase):
                 A.delete(I)
                 self.assertEqual(A.count, N - 1)                # проверка изменившегося размера массива
                 self.assertEqual(A.capacity, int(2*N / 1.5))    # проверка изменившегося размера буфера
-                
-    def test_delete_the_buffer_size_is_minimum(self):
-        """ При размере буфера 16 удаление происходит без уменьшения буфера, даже в том случае, когда массив занимает менее половины буфера
+
+    def test_delete_the_buffer_size_is_reduced_to_less_than_minimum(self):
+        """ Тест проверяет все случаи когда есть уменьшение буфера в 1.5 приведет к размеру  меньше минимального,
+            и буфер должен принять размер 16
         """
-        for j in range (100):
-            N = 8                                   # генерируем размер массива N равный половине минимального буфера
+        for j in range (16, 26):                    # проверяемый диапазон размеров буфера
+            N = (j + 1) // 2                        # выберем размер массива N так, чтобы N-1 <= j/2 < N
             A = DynArray()
-            for i in range (9):                     # Заполняем массив 9-ю элементами, чтоб буфер увеличился
+            for i in range (N):                     # Заполняем массив N элементами
                 X = random.randint(1, 50)
-                A.append(X)                          
-            self.assertEqual(A.capacity, 2 * N)     # проверка размера буфера
-            A.delete(N)                             # Удаляем лишний элемент, теперь буфер заполнен ровно на половину
+                A.append(X)                         
+            A.resize(j)                             # Задаем размер буфера равный j
             I = random.randint(0, N - 1)
             if I != N - 1:                                      # если удаляемый элемент не последний
                 Next = A[I + 1]                                 # запоминаем следующий за ним элемент
                 A.delete(I)
                 self.assertEqual(A.count, N - 1)                # проверка изменившегося размера массива
                 self.assertEqual(A[I], Next)                    # проверка правильного смещения после удаления
-                self.assertEqual(A.capacity, 2*N)               # проверка неизменившегося размера буфера
+                self.assertEqual(A.capacity, 16)                # проверка размера буфера
             else:                                               
                 A.delete(I)
                 self.assertEqual(A.count, N - 1)                # проверка изменившегося размера массива
-                self.assertEqual(A.capacity, 2*N)               # проверка неизменившегося размера буфера                
+                self.assertEqual(A.capacity, 16)                # проверка размера буфера             
 
     def test_delete_wrong_index(self):
         """ Тест проверяет что всегда в случае задания неправильного индекса генерируется исключение и удаление не выполняется
