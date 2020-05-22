@@ -18,4 +18,7 @@ class Stack:
         self.stack.insert (0, value)
 
     def peek(self):
-        return self.stack[0]
+        try:
+            return self.stack[0]
+        except IndexError:
+            return None
