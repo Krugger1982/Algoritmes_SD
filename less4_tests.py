@@ -36,7 +36,6 @@ class MyTestCase(unittest.TestCase):
         for i in range(-1, -len(Example), -1):
             self.assertEqual(Example[i], Ex.pop())      
 
-
-if __name__ == '__main__':
-    try: unittest.main()
-    except SystemExit: pass
+    def pop_empty_stack (self):
+        Ex = Stack()
+        self.assertEqual(None, Ex.pop())   
