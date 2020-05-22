@@ -1,7 +1,11 @@
 def postfix_math(expression):
+    C = expression[::-1]            # Строку необходимо перевернуть
+    S = Stack()
+    for i in C:
+        S.push(i)                 # Преобразование входной строки в стек
     S1 = Stack()
-    while expression.size() > 0:
-        current = expression.pop()
+    while S.size() > 0:
+        current = S.pop()
         if current.isdigit():
             S1.push(float(current))
         elif current == '+':
