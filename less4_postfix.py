@@ -1,8 +1,9 @@
 def postfix_math(expression):
-    C = expression[::-1]            # Строку необходимо перевернуть
+    C = expression.split()          # Строку необходимо разделить по пробелам
+    C.reverse()                     
     S = Stack()
     for i in C:
-        S.push(i)                 # Преобразование входной строки в стек
+        S.push(i)                   # Преобразование списка операндов и операторов в стек
     S1 = Stack()
     while S.size() > 0:
         current = S.pop()
