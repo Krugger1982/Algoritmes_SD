@@ -14,6 +14,16 @@ def postfix_math(expression):
             while S1.size() > 0:
                 rezult *= S1.pop()
             S1.push(rezult)
+        elif current == '-':
+            vichitaemoe = S1.pop()
+            umenshaemoe = S1.pop()
+            rezult = umenshaemoe - vichitaemoe
+            S1.push(rezult)  
+        elif current == '/':
+            delitel = S1.pop()
+            delimoe = S1.pop()
+            rezult = delimoe / delitel
+            S1.push(rezult)        
         elif current == '=':
             return S1.pop()
     return S1.pop()
