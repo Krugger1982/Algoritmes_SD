@@ -6,8 +6,12 @@ class Stack:
         return len(self.stack)
 
     def pop(self):
-        x = self.stack[0]
-        del self.stack[0]
+        x = None
+        try:
+            x = self.stack[0]
+            del self.stack[0]
+        except IndexError:
+            pass
         return x     
     
     def push(self, value):
