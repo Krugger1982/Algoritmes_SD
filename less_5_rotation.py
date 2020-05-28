@@ -1,5 +1,4 @@
 def rotation(Ochered, N):
     for i in range(N):
-        target = Ochered.dequeue()
-        Ochered.enqueue(target)
+        Ochered.enqueue(Ochered.dequeue())
     return Ochered
