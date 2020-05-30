@@ -4,8 +4,6 @@ def palindrom(String):
     for i in String:
         Ochered.addTail(i)                              # переписыввем содержание строки в очередь Deque
     while Ochered.size() > 1:
-        A = Ochered.removeFront()
-        B = Ochered.removeTail()
-        if A != B:
+        if Ochered.removeFront() != Ochered.removeTail():
             return False
     return True
