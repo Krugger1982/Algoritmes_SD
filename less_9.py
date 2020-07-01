@@ -16,13 +16,15 @@ class NativeDictionary:
     def put(self, key, value):
         index = self.hash_fun(key)
         N = 0
-        while N == 0:
+        K = 0
+        while N == 0 and K <= self.size:
             if self.slots[index] is None:
                 self.slots[index] = key
                 self.values[index] = value
                 N += 1
             else:
                 index = (index + 1) % self.size
+                K += 1
 
     def get(self, key):
         if self.is_key(key):
