@@ -13,6 +13,13 @@ class MyTestCase(unittest.TestCase):
             Test_Filter.add(A)
             self.assertTrue(Test_Filter.is_value(A))
             
+    def test_add_and_isValue_wrong (self):
+        Test_Filter = BloomFilter(32)
+        A = 'А Роза упала на лапу Азора'
+        self.assertFalse(Test_Filter.is_value(A))   
+        Test_Filter.add(A)
+        self.assertTrue(Test_Filter.is_value(A))            
+
+        
 if __name__ == '__main__':
     try: unittest.main()
-    except SystemExit: pass
