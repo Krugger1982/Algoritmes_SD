@@ -52,6 +52,7 @@ class BST:
         target = self.FindNodeByKey(key)
         if target.Node is None:                                     # Для вставки в пустое дерево
             self.Root = BSTNode(key, val, None)                     # Элемент формируется и становится корнем дерева
+	    return True
         elif not target.NodeHasKey  and target.ToLeft:                # Если ключ не найден и надо добавлять левого потомка
             target.Node.LeftChild = BSTNode(key, val, target.Node)
             return True
