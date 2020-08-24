@@ -5,7 +5,7 @@ class MyTestCase(unittest.TestCase):
         Tree = BST(None)
         Tree.AddKeyValue(8, 'Hotel')
         self.assertEqual(Tree.Count(), 1)
-         # Проверка - ключ 5 не найден
+        self.assertFalse(Tree.FindNodeByKey(5).NodeHasKey)  # Проверка - ключ 5 не найден
 
     
     def test_2_add_and_Find_and_Count (self):
@@ -82,13 +82,15 @@ class MyTestCase(unittest.TestCase):
 
     def test_4_FindMinMax (self):
         # создаем тестовое дерево
-        #       Root         H(8)
-        #               /           \
-        #           D(4)            L(12)
-        #          /     \           /    \
-        #      B(2)      F(6)      J(10)   N(14) 
-        #        \       /   \     / \        /     
-        #        C(3)  E(5) G(7) I(9) K(11) M(13)  
+        #
+        #       Root          H(8)
+        #                 /        \
+        #               /             \
+        #           D(4)                L(12)
+        #          /    \              /      \
+        #      B(2)      F(6)       J(10)     N(14) 
+        #        \      /   \       / \        /     
+        #        C(3)  E(5) G(7) I(9) K(11)  M(13)  
 
         Tree = BST(None)
         Tree.AddKeyValue(8, 'Hotel')
@@ -105,11 +107,11 @@ class MyTestCase(unittest.TestCase):
         Tree.AddKeyValue(9, 'India')
         Tree.AddKeyValue(11, 'Kilo')
         Tree.AddKeyValue(13, 'Mike')
-                                                # и отсутствует элемент 15
+                                                # и пусть отсутствует элемент 15
         self.assertEqual(Tree.Count(), 13)      # проверка - всего 13 элементов
-        Example1 = Tree.Root
-        Example2 = Tree.FindNodeByKey(4).Node
-        Example3 = Tree.FindNodeByKey(10).Node
+        Example1 = Tree.Root                    # проверяем минимум/максимум всего дерева (слева и справа крайние листы отсутствуют)
+        Example2 = Tree.FindNodeByKey(4).Node   # поддерево слева неполное, а справа полное
+        Example3 = Tree.FindNodeByKey(10).Node  # полное поддерево
         self.assertEqual(Tree.FinMinMax(Example1, True), 14)
         self.assertEqual(Tree.FinMinMax(Example1, False), 2)
         self.assertEqual(Tree.FinMinMax(Example2, True), 7)
@@ -156,10 +158,10 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(Tree.FindNodeByKey(2).ToLeft)               # При поиске узла 2 найдено его будущее место - слева от узла 3
         self.assertFalse(Tree.DeleteNodeByKey(2))                   # Повторно удалить элемент 2 не получится, вернется False
         self.assertEqual(Tree.Count(), 13)                          # Количество не изменилось 
-        self.assertTrue(Tree.DeleteNodeByKey(8))                    # Удаляем корень. На его место встанет узел 9
-        self.assertEqual(Tree.FindNodeByKey(9).Node.RightChild.NodeValue, 'Lima')       # теперь левый потомок узла 9 - это узел 4   
-        self.assertEqual(Tree.FindNodeByKey(9).Node.LeftChild.NodeValue, 'Delta')       # а правый потомок узла 9 - узел 12
-        self.assertEqual(Tree.FindNodeByKey(10).Node.LeftChild, None)                   # Мам узел 9 удалился из детей узла 10
+        self.assertTrue(Tree.DeleteNodeByKey(8))                                        # Удаляем корень. На его место встанет узел 9
+        self.assertEqual(Tree.FindNodeByKey(9).Node.RightChild.NodeValue, 'Lima')       # теперь правый потомок узла 9 - это узел 4   
+        self.assertEqual(Tree.FindNodeByKey(9).Node.LeftChild.NodeValue, 'Delta')       # а левый потомок узла 9 - узел 12
+        self.assertEqual(Tree.FindNodeByKey(10).Node.LeftChild, None)                   # Сам узел 9 удалился из детей узла 10
         
     
         
