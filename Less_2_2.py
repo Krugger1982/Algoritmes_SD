@@ -63,13 +63,13 @@ class BST:
 
     def FinMinMax(self, FromNode, FindMax):
         # ищем максимальный/минимальный ключ в поддереве
-        if FromNode is None:
-            return None                                         # для пустого дерева
-        if FindMax and FromNode.RightChild is None:
+        if FromNode == None:
+            return None                                             # для пустого дерева
+        elif FindMax and FromNode.RightChild == None:
             return FromNode.NodeKey
         elif FindMax:   
             return self.FinMinMax(FromNode.RightChild, FindMax)
-        elif FromNode.LeftChild is None:
+        elif FromNode.LeftChild == None:
             return FromNode.NodeKey
         else:
             return self.FinMinMax(FromNode.LeftChild, FindMax)        
