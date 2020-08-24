@@ -63,16 +63,17 @@ class BST:
 
     def FinMinMax(self, FromNode, FindMax):
         # ищем максимальный/минимальный ключ в поддереве
-        if FromNode == None:
+        current = FromNode
+        if current is None:
             return None                                             # для пустого дерева
-        elif FindMax and FromNode.RightChild == None:
-            return FromNode.NodeKey
+        elif FindMax and current.RightChild is None:
+            return current
         elif FindMax:   
-            return self.FinMinMax(FromNode.RightChild, FindMax)
-        elif FromNode.LeftChild == None:
-            return FromNode.NodeKey
+            return self.FinMinMax(current.RightChild, FindMax)
+        elif current.LeftChild is None:
+            return current
         else:
-            return self.FinMinMax(FromNode.LeftChild, FindMax)        
+            return self.FinMinMax(current.LeftChild, FindMax)        
    
     def DeleteNodeByKey(self, key):
         # удаляем узел по ключу
@@ -89,16 +90,16 @@ class BST:
             self.Root = removed.Node.LeftChild
             removed.Node.LeftChild.Parent = None                                        # Этот потомок становится корнем
         elif removed.Node.Parent is None:                                               # Если у корня 2 потомка
-            heir = self.FindNodeByKey(self.FinMinMax(removed.Node.RightChild, False))   # Находим преемника
-            if heir.Node.RightChild is not None:                            # Если у преемника есть правый сын
-                heir.Node.RightChild.Parent = heir.Node.Parent              # перевешиваем его к "отцу" преемника
-                heir.Node.Parent.LeftChild = heir.Node.RightChild
+            heir = self.FinMinMax(removed.Node.RightChild, False)           # Находим преемника
+            if heir.RightChild is not None:                            # Если у преемника есть правый сын
+                heir.RightChild.Parent = heir.Parent                   # перевешиваем его к "отцу" преемника
+                heir.Parent.LeftChild = heir.RightChild
             else:
-                heir.Node.Parent.LeftChild = None                           # А если преемник - лист, то у его родителя обнуляем ссылку на heir.Node
-            self.Root = heir.Node                                           # и перемещаем преемника в корень
-            heir.Node.Parent = None                                             # связь с отцом - None
-            heir.Node.LeftChild = removed.Node.LeftChild                        # забираем детей от removed.None
-            heir.Node.RightChild = removed.Node.RightChild
+                heir.Parent.LeftChild = None                                # А если преемник - лист, то у его родителя обнуляем ссылку на heir
+            self.Root = heir                                                # и перемещаем преемника в корень
+            heir.Parent = None                                              # связь с отцом - None
+            heir.LeftChild = removed.Node.LeftChild                         # забираем детей от removed.None
+            heir.RightChild = removed.Node.RightChild
         # Далее рассмотрим случаи когда удаляемый элемент - не корневой
         elif removed.Node.LeftChild is None and removed.Node.RightChild is None and removed.Node.Parent.NodeKey > removed.Node.NodeKey:    # Если удаляемый - левый лист
             removed.Node.Parent.LeftChild = None
@@ -117,31 +118,31 @@ class BST:
             removed.Node.RightChild.Parent = removed.Node.Parent
             removed.Node.Parent.RightChild = removed.Node.RightChild
         elif removed.Node.Parent.NodeKey > removed.Node.NodeKey:                            # Случай с двумя потомками,  удаляемый - левый
-            heir = self.FindNodeByKey(self.FinMinMax(removed.Node.RightChild, False))       # Находим преемника
-            if heir.Node.RightChild is not None:                                            # механизм замещения, если у преемника есть правый потомок
-                heir.Node.RightChild.Parent = heir.Node.Parent                              # то перевешиваем его от heir.Node к родителю heir.Node
-                heir.Node.Parent.LeftChild = heir.Node.RightChild
+            heir = heir = self.FinMinMax(removed.Node.RightChild, False)                    # Находим преемника
+            if heir.RightChild is not None:                                                 # механизм замещения, если у преемника есть правый потомок
+                heir.RightChild.Parent = heir.Parent                                        # то перевешиваем его от heir к родителю heir
+                heir.Parent.LeftChild = heir.RightChild
             else:
-                heir.Node.Parent.LeftChild = None                                           # А если преемник - лист, то у его родителя обнуляем ссылку на heir.Node
-            heir.Node.Parent = removed.Node.Parent                                          # переносим связи с родителем
-            heir.Node.Parent.LeftChild = heir.Node
-            heir.Node.LeftChild = removed.Node.LeftChild                                    # и связи с детьми
-            heir.Node.LeftChild.Parent = heir.Node
-            heir.Node.RightChild = removed.Node.RightChild
-            heir.Node.RightChild.Parent = heir.Node
+                heir.Parent.LeftChild = None                                                # А если преемник - лист, то у его родителя обнуляем ссылку на heir
+            heir.Parent = removed.Node.Parent                                               # переносим связи с родителем
+            heir.Parent.LeftChild = heir
+            heir.LeftChild = removed.Node.LeftChild                                         # и связи с детьми
+            heir.LeftChild.Parent = heir
+            heir.RightChild = removed.Node.RightChild
+            heir.RightChild.Parent = heir
         else:                                                                               # Случай с двумя потомками, удаляемый - правый
-            heir = self.FindNodeByKey(self.FinMinMax(removed.Node.RightChild, False))       # Находим преемника
-            if heir.Node.RightChild is not None:                                            # механизм замещения, если у преемника есть правый потомок
-                heir.Node.RightChild.parent = heir.Node.Parent            
-                heir.Node.Parent.LeftChild = heir.Node.RightChild
+            heir = self.FinMinMax(removed.Node.RightChild, False)                    # Находим преемника
+            if heir.RightChild is not None:                                            # механизм замещения, если у преемника есть правый потомок
+                heir.RightChild.parent = heir.Parent            
+                heir.Parent.LeftChild = heir.RightChild
             else:
-                heir.Node.Parent.LeftChild = None                                           # А если преемник - лист, то у его родителя обнуляем ссылку на heir.Node
-            heir.Node.Parent = removed.Node.Parent                                          # переносим связи с родителем
-            heir.Node.Parent.RightChild = heir.Node
-            heir.Node.LeftChild = removed.Node.LeftChild                                    # и связи с детьми
-            heir.Node.LeftChild.Parent = heir.Node
-            heir.Node.RightChild = removed.Node.RightChild
-            heir.Node.RightChild.Parent = heir.Node
+                heir.Parent.LeftChild = None                                           # А если преемник - лист, то у его родителя обнуляем ссылку на heir
+            heir.Parent = removed.Node.Parent                                          # переносим связи с родителем
+            heir.Parent.RightChild = heir
+            heir.LeftChild = removed.Node.LeftChild                                    # и связи с детьми
+            heir.LeftChild.Parent = heir
+            heir.RightChild = removed.Node.RightChild
+            heir.RightChild.Parent = heir
         return True
             
     def Count_branch(self, Node):
