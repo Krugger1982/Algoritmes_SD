@@ -34,7 +34,7 @@ class aBST:
             return self.FindKeyBranch(2 * index + 2, key)
             # искомый ключ больше текущего - ищем в "правой" ветке
         else:
-            return None     # если ничего не нашли
+            return None     # если дошли до последнего уровня (листьев) и ключа там нет, и места для вставки тоже нет
 
                      
     def AddKey(self, key):
@@ -43,6 +43,7 @@ class aBST:
         if index is None:
             return -1; 
             # индекс добавленного/существующего ключа или -1 если не удалось
-        elif index < 0:
-            self.Tree[index] = key
+        elif index < 0:             # если index отрицтельный, значит есть место для вставки ключа
+            self.Tree[index] = key  # вставляем ключ
+            index = len(self.Tree) + index  # и приводим index к нормальному виду            
         return index
