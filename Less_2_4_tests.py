@@ -13,23 +13,23 @@ class MyTestCase(unittest.TestCase):
         #      / \       /   \        /   \      /     \ 
         #   7(1) 8(3)  9(5) 10(7) 11(9) 12(11) 13(13)  14(15)
 
-        Tree = aBST(4)
-        Tree.AddKey(8)
-        Tree.AddKey(4)
-        Tree.AddKey(12)
-        Tree.AddKey(2)
-        Tree.AddKey(6)
-        Tree.AddKey(10)
-        Tree.AddKey(14)
-        Tree.AddKey(1)
-        Tree.AddKey(3)
-        Tree.AddKey(5)
-        Tree.AddKey(7)      # левая половина дерева (все, что меньше 8) - заполнена
+        Tree = aBST(3)
+        self.assertEqual(Tree.AddKey(8), 0)     # проверка - ключ 8 вставился в позицию 1
+        self.assertEqual(Tree.AddKey(4), 1)
+        self.assertEqual(Tree.AddKey(12), 2)
+        self.assertEqual(Tree.AddKey(2), 3)
+        self.assertEqual(Tree.AddKey(6), 4)
+        self.assertEqual(Tree.AddKey(10), 5)
+        self.assertEqual(Tree.AddKey(14), 6)
+        self.assertEqual(Tree.AddKey(1), 7)
+        self.assertEqual(Tree.AddKey(3), 8)
+        self.assertEqual(Tree.AddKey(5), 9)
+        self.assertEqual(Tree.AddKey(7), 10)     # левая половина дерева (все, что меньше 8) - заполнена
         self.assertEqual(Tree.AddKey(0), -1)       # поверка - ключ 0 не вставится - нет свободного места
-        Tree.AddKey(9)
-        Tree.AddKey(11)
-        Tree.AddKey(13)
-        Tree.AddKey(15)     # все дерево заполнено
+        self.assertEqual(Tree.AddKey(9), 11)
+        self.assertEqual(Tree.AddKey(11), 12)
+        self.assertEqual(Tree.AddKey(13), 13)
+        self.assertEqual(Tree.AddKey(15), 14)     # все дерево заполнено
         self.assertEqual(Tree.AddKey(19), -1)       # поверка - ключ 19 не вставится - нет свободного места
         
     def test_2_add_and_find(self):
@@ -44,7 +44,7 @@ class MyTestCase(unittest.TestCase):
         #      / \       /   \        /   \      /     \ 
         #   7(2) 8(6) 9(10) 10(14) 11(18) 12(22) 13(26)  14(31)
 
-        Test_Tree = aBST(4)
+        Test_Tree = aBST(3)
         Test_Tree.AddKey(16)
         Test_Tree.AddKey(8)
         Test_Tree.AddKey(24)
