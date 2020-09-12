@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
         TestHeap = Heap()
         self.assertFalse(TestHeap.Add(TestArray[0]))            # проверка - просто так в пустую кучу элемент не вставишь
                          
-        TestHeap.MakeHeap(TestArray, depth)                     # заполняем кучу из массива
+        TestHeap.MakeHeap(TestArray, depth - 1)                     # заполняем кучу из массива
         result = [98, 48, 35, 33, 11, 14, 25, 0, 8, 2]
         for i in range(len(TestHeap.HeapArray)):
             self.assertEqual(TestHeap.HeapArray[i], result[i])
@@ -38,7 +38,7 @@ class MyTestCase(unittest.TestCase):
         while Number < len(TestArray):                           # определим будущую глубину кучи
             depth += 1
             Number *= 2
-        TestHeap.MakeHeap(TestArray, depth)                     # заполняем кучу из массива
+        TestHeap.MakeHeap(TestArray, depth - 1)                     # заполняем кучу из массива
         result = [98, 48, 35, 33, 11, 14, 25, 0, 8, 2, 3]
         # в куче он должен распределиться так
         #                    98
