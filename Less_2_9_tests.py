@@ -50,7 +50,7 @@ class MyTestCase(unittest.TestCase):
         #                     J(35)
         #  список для разрыва дерева на маленькие четные деревья будет выглядеть так:
         TestResultValues = [99, 1, 99, 5, 33, 34]
-        
+        # обход идет слева направо, снизу вверх
 
 
         A = SimpleTreeNode(99, None)
@@ -77,4 +77,8 @@ class MyTestCase(unittest.TestCase):
 
         List_Of_Trees = Tree.EvenTrees()
         for i in range(len(TestResultValues)):                                  # пробегаем по тестовому списку
-            self.assertEqual(TestResultValues[i], List_Of_Trees[i].NodeValue)   # и сравниваем его элементы с элементами List_Of_Trees (Точнее с их содержимым)    
+            self.assertEqual(TestResultValues[i], List_Of_Trees[i].NodeValue)   # и сравниваем его элементы с элементами List_Of_Trees (Точнее с их содержимым)       
+        
+if __name__ == '__main__':
+    try: unittest.main()
+    except SystemExit: pass
