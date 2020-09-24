@@ -109,7 +109,6 @@ class MyTestCase(unittest.TestCase):
         for index in range(len(Way)):                               # пробегаем по результату
             self.assertEqual(Test_List[index], Way[index].Value)    # проверяем последовательность шагов
 
-        
     def test_4_Is_Way_2(self):
         # Создадим тестовый граф
         #       (0) ---(1)  
@@ -122,9 +121,10 @@ class MyTestCase(unittest.TestCase):
         #        (6) -- (8)
         # Вершины расположены в списке по номерам:
         # [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        # тогда верщины 1, 2 и 7 будут отброшены как тупиковые
-        # Результатом поиска должен стать такой список:
-        Test_List = [0, 3, 4, 5, 6, 8]
+        # Результатом поиска 0-8  должен стать такой список:
+        Test_List1 = [0, 3, 4, 5, 6, 8]
+        # А результатом поиска 2-8  должен стать такой список:
+        Test_List2 = [2, 3, 0, 5, 4, 6, 8]
         
         TestGraph = SimpleGraph(9)      # создаем пустой граф
         TestGraph.AddVertex(0)          # добавляем вершину 0
@@ -152,7 +152,11 @@ class MyTestCase(unittest.TestCase):
         Way = TestGraph.DepthFirstSearch(0, 8)
 
         for index in range(len(Way)):                               # пробегаем по результату
-            self.assertEqual(Test_List[index], Way[index].Value)    # проверяем последовательность шагов   
+            self.assertEqual(Test_List1[index], Way[index].Value)   # проверяем последовательность шагов   
+
+        Way = TestGraph.DepthFirstSearch(2, 8)                      # повторный прогон чтоб проверить, как все внутри очищается
+        for index in range(len(Way)):                               # пробегаем по результату
+            self.assertEqual(Test_List2[index], Way[index].Value)   # проверяем последовательность шагов         
         
 if __name__ == '__main__':
     try: unittest.main()
